@@ -1,0 +1,135 @@
+{
+  "result": [
+    {
+      "scriptId": "710",
+      "url": "file:///Users/aa-kanou/Desktop/dev/yelp-camp_with_react/yelp-camp/vitest-setup.ts",
+      "functions": [
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 0, "endOffset": 2347, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 13, "endOffset": 2347, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 772, "endOffset": 822, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 857, "endOffset": 1014, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 1048, "endOffset": 1097, "count": 1 }],
+          "isBlockCoverage": true
+        }
+      ]
+    },
+    {
+      "scriptId": "1317",
+      "url": "file:///Users/aa-kanou/Desktop/dev/yelp-camp_with_react/yelp-camp/src/mocks/node.ts",
+      "functions": [
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 0, "endOffset": 1174, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 13, "endOffset": 1174, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "get",
+          "ranges": [{ "startOffset": 621, "endOffset": 643, "count": 3 }],
+          "isBlockCoverage": true
+        }
+      ]
+    },
+    {
+      "scriptId": "1706",
+      "url": "file:///Users/aa-kanou/Desktop/dev/yelp-camp_with_react/yelp-camp/src/mocks/testAPI.ts",
+      "functions": [
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 0, "endOffset": 1528, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 13, "endOffset": 1528, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 422, "endOffset": 566, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "get",
+          "ranges": [{ "startOffset": 666, "endOffset": 689, "count": 1 }],
+          "isBlockCoverage": true
+        }
+      ]
+    },
+    {
+      "scriptId": "1718",
+      "url": "file:///Users/aa-kanou/Desktop/dev/yelp-camp_with_react/yelp-camp/src/components/SampleTest.test.tsx",
+      "functions": [
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 0, "endOffset": 4177, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 13, "endOffset": 4177, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 956, "endOffset": 1829, "count": 1 }],
+          "isBlockCoverage": true
+        }
+      ]
+    },
+    {
+      "scriptId": "1811",
+      "url": "file:///Users/aa-kanou/Desktop/dev/yelp-camp_with_react/yelp-camp/src/components/SampleTest.tsx",
+      "functions": [
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 0, "endOffset": 4630, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "",
+          "ranges": [{ "startOffset": 13, "endOffset": 4630, "count": 1 }],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "Sample",
+          "ranges": [
+            { "startOffset": 474, "endOffset": 2378, "count": 3 },
+            { "startOffset": 869, "endOffset": 1195, "count": 1 },
+            { "startOffset": 1195, "endOffset": 1222, "count": 2 },
+            { "startOffset": 1222, "endOffset": 1260, "count": 1 },
+            { "startOffset": 1261, "endOffset": 1274, "count": 1 }
+          ],
+          "isBlockCoverage": true
+        },
+        {
+          "functionName": "handleClick",
+          "ranges": [{ "startOffset": 647, "endOffset": 848, "count": 1 }],
+          "isBlockCoverage": true
+        }
+      ]
+    }
+  ]
+}
