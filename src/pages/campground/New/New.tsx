@@ -1,29 +1,29 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
 
 import axios from "axios";
+import { Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 import Layer from "@/layer/Layer";
 
 const New: FC = () => {
-  // const [title, setTitle] = useState("");
-  // const [price, setPrice] = useState<number | null>(null);
-  // const [location, setLocation] = useState("");
-  // const [image, setImage] = useState("");
-  // const [description, setDescription] = useState("");
-
   const [form, setForm] = useState({
     title: "",
     price: null,
     location: "",
-    image: "",
+    images: "",
     description: "",
   });
+
+  const [validated, setValidated] = useState(false);
 
   const [titleError, setTitleError] = useState("");
   const [priceError, setPriceError] = useState("");
   const [locationError, setLocationError] = useState("");
   const [imageError, setImageError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
+
+  const navigate = useNavigate();
 
   const newEndPoint = "http://localhost:3000/api/campground/new";
 
@@ -36,49 +36,49 @@ const New: FC = () => {
     setImageError("");
     setDescriptionError("");
 
-    // const formData = {
-    //   title: title,
-    //   price: price,
-    //   location: location,
-    //   image: image,
-    //   description: description,
-    // };
-
     // エラーのチェック
     const emptyTitle = form.title === "";
     const emptyPrice = form.price === null || form.price < 0;
     const emptyLocation = form.location === "";
-    const emptyImage = form.image === "";
+    const emptyImage = form.images === "";
     const emptyDescription = form.description === "";
 
     if (emptyTitle) {
       setTitleError("タイトルを入力してください");
+      setValidated(true);
     }
     if (emptyPrice) {
       setPriceError("0円以上を指定してください");
+      setValidated(true);
     }
 
     if (!emptyPrice) {
       const parsedPrice = parseInt(String(form.price));
       if (isNaN(parsedPrice)) {
         setPriceError("有効な数字を入力してください");
+        setValidated(true);
         return;
       }
 
       if (parsedPrice < 0) {
         setPriceError("0円以上を入力してください");
+        setValidated(true);
         return;
       }
+      setValidated(true);
     }
 
     if (emptyLocation) {
       setLocationError("場所を入力してください");
+      setValidated(true);
     }
     if (emptyImage) {
-      setImageError("URlを入力してください");
+      setImageError("URLを入力してください");
+      setValidated(true);
     }
     if (emptyDescription) {
       setDescriptionError("説明を入力してください");
+      setValidated(true);
     }
 
     const enableSubmit =
@@ -92,7 +92,7 @@ const New: FC = () => {
       console.log("submit");
       console.log(form);
 
-      axios
+      await axios
         .post(newEndPoint, form)
         .then((res) => {
           console.log(res);
@@ -100,10 +100,12 @@ const New: FC = () => {
             title: "",
             price: null,
             location: "",
-            image: "",
+            images: "",
             description: "",
           });
+          console.log(res.data);
           console.log("作成しました");
+          navigate(`/api/campground/${res.data._id}/detail`);
         })
         .catch((err) => {
           console.log(err);
@@ -117,39 +119,17 @@ const New: FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // const onChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setTitle(e.target.value);
-  // };
-
-  // const onChangePrice = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const inputValue = e.target.value;
-
-  //   if (typeof inputValue !== "number" && !/^\d*$/.test(inputValue)) {
-  //     console.log("数字を入力してください");
-  //     return <p>数字を入力してください</p>;
-  //   }
-  //   const priceValue = inputValue === "" ? null : parseInt(inputValue);
-  //   setPrice(priceValue);
-  // };
-
-  // const onChangeLocation = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setLocation(e.target.value);
-  // };
-
-  // const onChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setImage(e.target.value);
-  // };
-
-  // const onChangeDescription = (e: ChangeEvent<HTMLTextAreaElement>) => {
-  //   setDescription(e.target.value);
-  // };
-
   return (
     <Layer>
       <div className="row">
         <h1 className="text-center mb-5">キャンプ場新規作成</h1>
         <div className="offset-3 col-6">
-          <form onSubmit={onSubmit}>
+          <Form
+            onSubmit={onSubmit}
+            noValidate
+            className="validated-form"
+            validated={validated}
+          >
             <div className="mb-3">
               {titleError && <p>{titleError}</p>}
               <label htmlFor="title" className="form-label">
@@ -163,7 +143,9 @@ const New: FC = () => {
                 value={form.title}
                 onChange={onChangeForm}
                 className="form-control"
+                required
               />
+              <div className="valid-feedback">OK</div>
             </div>
 
             <div className="mb-3">
@@ -187,7 +169,9 @@ const New: FC = () => {
                     className="form-control"
                     aria-label="価格"
                     aria-describedby="price"
+                    required
                   />
+                  <div className="valid-feedback">OK</div>
                 </div>
               </div>
             </div>
@@ -205,22 +189,26 @@ const New: FC = () => {
                 value={form.location}
                 onChange={onChangeForm}
                 className="form-control"
+                required
               />
+              <div className="valid-feedback">OK</div>
             </div>
             <div className="mb-3">
               {imageError && <p>{imageError}</p>}
-              <label htmlFor="image" className="form-label">
+              <label htmlFor="images" className="form-label">
                 画像:{" "}
               </label>
               <input
                 type="text"
-                id="image"
+                id="images"
                 placeholder="URLを入力"
-                name="image"
-                value={form.image}
+                name="images"
+                value={form.images}
                 onChange={onChangeForm}
                 className="form-control"
+                required
               />
+              <div className="valid-feedback">OK</div>
             </div>
             <div className="mb-3">
               {descriptionError && <p>{descriptionError}</p>}
@@ -234,14 +222,16 @@ const New: FC = () => {
                 value={form.description}
                 onChange={onChangeForm}
                 className="form-control"
+                required
               ></textarea>
+              <div className="valid-feedback">OK</div>
             </div>
             <div className="mb-3">
               <button className="btn btn-success" type="submit">
                 作成
               </button>
             </div>
-          </form>
+          </Form>
           <a className="mb-3" href="/api/campground">
             一覧に戻る
           </a>
