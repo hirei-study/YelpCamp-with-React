@@ -105,7 +105,7 @@ const New: FC = () => {
           });
           console.log(res.data);
           console.log("作成しました");
-          navigate(`/api/campground/${res.data._id}/detail`);
+          return navigate(`/api/campground/${res.data.campground._id}/detail`);
         })
         .catch((err) => {
           console.log(err);
