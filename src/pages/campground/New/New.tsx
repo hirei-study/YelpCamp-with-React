@@ -23,6 +23,8 @@ const New: FC = () => {
   const [imageError, setImageError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
 
+  const [flash, setFlash] = useState("");
+
   const navigate = useNavigate();
 
   const newEndPoint = "http://localhost:3000/api/campground/new";
@@ -92,8 +94,12 @@ const New: FC = () => {
       console.log("submit");
       console.log(form);
 
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+
       await axios
-        .post(newEndPoint, form)
+        .post(newEndPoint, form, { headers: headers })
         .then((res) => {
           console.log(res);
           setForm({
@@ -105,10 +111,12 @@ const New: FC = () => {
           });
           console.log(res.data);
           console.log("作成しました");
+          setFlash(res.data.message);
           return navigate(`/api/campground/${res.data.campground._id}/detail`);
         })
         .catch((err) => {
           console.log(err);
+          setFlash(err.response.data.flash);
         });
     }
   };
@@ -123,6 +131,7 @@ const New: FC = () => {
     <Layer>
       <div className="row">
         <h1 className="text-center mb-5">キャンプ場新規作成</h1>
+        {flash && <p>{flash}</p>}
         <div className="offset-3 col-6">
           <Form
             onSubmit={onSubmit}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import axios from "axios";
-// import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import type Campground from "@/types/Campground";
 
@@ -9,20 +9,26 @@ import Layer from "@/layer/Layer";
 
 const Campground = () => {
   const [campgrounds, setCampgrounds] = useState<Campground[]>([]);
+  const location = useLocation();
+  type MessageState = { flash: string; type: "success" | "error" };
+  const messageState = location.state as MessageState;
 
   useEffect(() => {
     const getCampground = async () => {
       const res = await axios.get("http://localhost:3000/api/campground");
       console.log(res.data);
-      console.log(res.data[0]._id);
+      console.log(messageState);
       setCampgrounds(res.data);
     };
     getCampground();
-  }, []);
+  }, [messageState]);
 
   return (
     <Layer>
       <h1>キャンプ場一覧</h1>
+      {messageState && messageState.type === "success" && (
+        <p>{messageState.flash}</p>
+      )}
       {campgrounds && campgrounds.length > 0 ? (
         campgrounds.map((campground, index) => (
           <div className="card mb-3" key={index}>
