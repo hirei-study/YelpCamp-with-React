@@ -16,8 +16,8 @@ const Campground = () => {
   useEffect(() => {
     const getCampground = async () => {
       const res = await axios.get("http://localhost:3000/api/campground");
-      console.log(res.data);
-      console.log(messageState);
+      // console.log(res.data);
+      // console.log(messageState);
       setCampgrounds(res.data);
     };
     getCampground();

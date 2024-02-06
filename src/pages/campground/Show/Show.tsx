@@ -26,6 +26,8 @@ const Show = () => {
   const backendURL = "http://localhost:3000/api/campground";
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+
   const getCampgroundDetail = async () => {
     try {
       const res = await axios.get(
@@ -159,17 +161,27 @@ const Show = () => {
                   <li className="list-group-item text-muted">
                     {detail.location}
                   </li>
+                  {detail.author && detail.author.length > 0 && (
+                    <li className="list-group-item">
+                      氏名: {detail.author[0]?.username}
+                    </li>
+                  )}
                   <li className="list-group-item">¥{detail.price}/泊</li>
                 </ul>
                 <div className="card-body">
-                  <a
-                    className="btn btn-info"
-                    href={`/api/campground/${id}/edit`}
-                  >
-                    編集する
-                  </a>
+                  {token && (
+                    <a
+                      className="btn btn-info"
+                      href={`/api/campground/${id}/edit`}
+                    >
+                      編集する
+                    </a>
+                  )}
+
                   <form className="d-inline" onSubmit={onSubmitDelete}>
-                    <button className="btn btn-danger">削除する</button>
+                    {token && (
+                      <button className="btn btn-danger">削除する</button>
+                    )}
                   </form>
                 </div>
                 <div className="card-footer text-muted">2 days ago</div>
@@ -214,7 +226,7 @@ const Show = () => {
                     required
                   ></textarea>
                 </div>
-                <button className="btn btn-success">投稿</button>
+                {token && <button className="btn btn-success">投稿</button>}
               </Form>
               <div>
                 {detail.reviews.map(

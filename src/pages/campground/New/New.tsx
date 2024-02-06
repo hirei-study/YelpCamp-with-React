@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 
 import axios from "axios";
 import { Form } from "react-bootstrap";
@@ -28,6 +28,16 @@ const New: FC = () => {
   const navigate = useNavigate();
 
   const newEndPoint = "http://localhost:3000/api/campground/new";
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // トークンがない場合、ログイン画面に遷移
+      return navigate("/api/auth/login", {
+        state: { message: "ログインして下さい" },
+      });
+    }
+  }, []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,6 +103,15 @@ const New: FC = () => {
     if (enableSubmit) {
       console.log("submit");
       console.log(form);
+
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        // トークンがない場合、ログイン画面に遷移
+        return navigate("/api/auth/login", {
+          state: { message: "ログインして下さい" },
+        });
+      }
 
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

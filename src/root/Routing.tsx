@@ -11,7 +11,6 @@ import Reviews from "@/pages/campground/Reviews/Reviews";
 import Show from "@/pages/campground/Show/Show";
 import Home from "@/pages/home/Home";
 import Login from "@/pages/login/Login";
-import Logout from "@/pages/logout/Logout";
 import NotFound from "@/pages/NotFound";
 import Register from "@/pages/register/Register";
 
@@ -33,7 +32,6 @@ const Routing = () => {
       <Route path="/api/auth" />
       <Route path="/api/auth/register" element={<Register />} />
       <Route path="/api/auth/login" element={<Login />} />
-      <Route path="/api/auth/logout" element={<Logout />} />
       {/* <Route path="/api/users">
         <Route path="/:id/update" element />
       </Route> */}
